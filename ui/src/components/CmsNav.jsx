@@ -1,5 +1,11 @@
+import { useSelector } from "react-redux"
+
 const CmsNav = () => {
-    return <div className="row">
+
+    const user = useSelector(state => state.user.value)
+
+    return Object.keys(user).length ? 
+    <div className="row">
         <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">News Portal</a>
@@ -32,7 +38,7 @@ const CmsNav = () => {
                 </div>
             </div>
         </nav>
-    </div>
+    </div> : null
 }
 
 export default CmsNav
