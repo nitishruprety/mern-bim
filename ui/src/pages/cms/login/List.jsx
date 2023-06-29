@@ -20,7 +20,7 @@ const List = () => {
                 inStorage('user_token', data.token, remember)
                 dispatch(addUser(data.user))
 
-                navigate('/cms/dahsboard')
+                navigate('/cms/dashboard')
             })
             .catch(error => {})
     }

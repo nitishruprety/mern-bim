@@ -5,7 +5,10 @@ const { unlinkSync } = require('node:fs')
 class ArticlesController {
     index = async (req, res, next) => {
         try {
-            const articles = await Article.find()
+            const articles = await Article.aggregate([
+                {$lookup: {from: 'categories', localField: 'categoryId', foreignField: '_id', as: 'category'}},
+                {$lookup: {from: 'users', localField: 'userId', foreignField: '_id', as: 'user'}},
+            ]).exec()
 
             res.json(articles)
         } catch(err) {

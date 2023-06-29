@@ -9,4 +9,8 @@ router.use('/users', userRoutes)
 router.use('/categories', categoryRoutes)
 router.use('/articles', articleRoutes)
 
+router.get('/user/detail', async (req, res, next) => {
+    res.json(req.user)
+})
+
 module.exports = router
