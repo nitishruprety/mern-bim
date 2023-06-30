@@ -11,6 +11,7 @@ const AllRoutes = () => {
 
                 <Route path="articles" element={<PrivateRoute element={<Pages.Cms.Articles.List />} />} />
                 <Route path="articles/create" element={<PrivateRoute element={<Pages.Cms.Articles.Create />} />} />
+                <Route path="articles/edit/:id" element={<PrivateRoute element={<Pages.Cms.Articles.Edit />} />} />
 
                 <Route path="login" element={<Pages.Cms.Login.List />} />
             </Route>

@@ -6,10 +6,22 @@ const List = () => {
     const [articles, setArticles] = useState([])
 
     useEffect(() => {
-        http.get('/cms/articles')
-            .then(({data}) => setArticles(data))
-            .catch(err => {})
+        loadData()
     }, [])
+
+    const loadData = () => http.get('/cms/articles')
+        .then(({ data }) => setArticles(data))
+        .catch(err => { })
+
+    const handleDelete = id => {
+        if(confirm('Are you sure you want to delete this item?')) {
+            http.delete(`/cms/articles/${id}`)
+                .then(() => {
+                    loadData()
+                })
+                .catch(err => {})
+        }
+    }
 
     return <div className="row">
         <div className="col-12 my-3 bg-white py-3">
@@ -36,6 +48,7 @@ const List = () => {
                                     <th>Status</th>
                                     <th>Created At</th>
                                     <th>Upadted At</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,9 +59,17 @@ const List = () => {
                                     </td>
                                     <td>{article.category[0].name}</td>
                                     <td>{article.user[0].name}</td>
-                                    <td>{article.status ? 'Active' : 'Inactive'}</td>
+                                    <td>{article.status}</td>
                                     <td>{article.createdAt}</td>
                                     <td>{article.updatedAt}</td>
+                                    <td>
+                                        <Link to={`/cms/articles/edit/${article._id}`} className="btn btn-success btn-sm">
+                                            <i className="fa-solid fa-edit me-2"></i>Edit
+                                        </Link>
+                                        <button type="button" className="btn btn-danger btn-sm ms-2" onClick={() => handleDelete(article._id)}>
+                                            <i className="fa-solid fa-trash me-2"></i>Delete
+                                        </button>
+                                    </td>
                                 </tr>)}
                             </tbody>
                         </table> : 

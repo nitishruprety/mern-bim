@@ -1,4 +1,5 @@
 import List from "./List"
 import Create from "./Create"
+import Edit from "./Edit"
 
-export { List, Create }
+export { List, Create, Edit }
